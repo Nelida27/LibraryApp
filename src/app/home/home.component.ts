@@ -1,29 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatSort} from '@angular/material/sort';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort } from '@angular/material/sort';
+import { Book } from '../models/book';
+import { BookService } from '../service/book.service';
+import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../change-category-modal/change-category-modal.component';
+import { MatDialog,MatDialogConfig } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
-export interface Book {
-  id:number;
-  title: string;
-  description: string;
-  author: string;
-  category: string;
-
-}
-
-const BOOK_DATA: Book[] = [
-  {id:1,title: 'Titull1', description: 'Hydrogen', author: 'a1', category: 'H'},
-  {id:2,title: 'Titull1', description: 'Helium', author: 'a2', category: 'He'},
-  {id:3,title: 'Titull1', description: 'Lithium', author: 'a3', category: 'Li'},
-  {id:4,title: 'Titull1', description: 'Beryllium', author: 'a4', category: 'Be'},
-  {id:5,title: 'Titull1', description: 'Boron', author: 'a5', category: 'B'},
-  {id:6,title: 'Titull1', description: 'Boron', author: 'a5', category: 'B'}
 
 
-];
 
 @Component({
   selector: 'app-home',
@@ -31,41 +20,55 @@ const BOOK_DATA: Book[] = [
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['select','id','title', 'description', 'author', 'category','actions'];
-    dataSource = new MatTableDataSource(BOOK_DATA);
-    selection = new SelectionModel<Book>(true,[]);
+ 
+  displayedColumns: string[] = ['select', 'id', 'title', 'description', 'author', 'category', 'actions'];
+  dataSource = new MatTableDataSource(this.getBooks());
+  selection = new SelectionModel<Book>(true, []);
+  result: string = '';
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+  
 
-    ngOnInit(){
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor(private bookService: BookService,public dialog: MatDialog,private router: Router) { }
+  currentRouter = this.router.url;
+  ngOnInit() {
 
 
-    }
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    
+    
+  }
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      if (this.dataSource.paginator) {
+  getBooks(){
+    
+    return this.bookService.getAllBooks();
+    
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    }
+  }
 
-    isAllSelected(){
-      const numSelected = this.selection.selected.length;
-      const numRows = this.dataSource.data.length;
-      return numSelected === numRows;
-    }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
-   masterToggle(){
-     this.isAllSelected()?
-     this.selection.clear() :
-     this.dataSource.data.forEach(row=>this.selection.select(row));
-   }
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
 
-   checkboxLabel(row?: Book): string {
+  checkboxLabel(row?: Book): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -73,28 +76,88 @@ export class HomeComponent implements OnInit {
   }
 
 
-  deleteRowData(elm){
-      this.dataSource.data = this.dataSource.data.filter(i => i !== elm)
-    }
+  deleteRowData(book:Book) {
+    this.bookService.deleteRow(book);
+    this.reloadComponent();
+  }
 
-    deleteSelected(){
-      this.selection.selected.forEach(item => {
-   let index: number = this.dataSource.data.findIndex(d => d === item);
-    console.log(index);
-   console.log("test");
-   this.dataSource.data.splice(index,1);
-
-
-
-
-
-   this.dataSource = new MatTableDataSource(this.dataSource.data);
-
- });
- this.selection = new SelectionModel<Book>(true, []);
-    }
-
-
-
-
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/']);
 }
+
+  deleteSelected() {
+    this.selection.selected.forEach(item => {
+      //let index: number = this.dataSource.data.findIndex(d => d === item);
+       console.log(item.id);
+      //this.dataSource.data.splice(index, 1);
+      this.deleteRowData(item);
+      //this.dataSource = new MatTableDataSource(this.dataSource.data);
+
+    });
+    //this.selection = new SelectionModel<Book>(true, []);
+  }
+
+  updateSelected(value){
+    this.selection.selected.forEach(item => {
+      let index: number = this.dataSource.data.findIndex(d => d === item);
+
+
+      //this.dataSource.data.splice(index, 1);
+      this.dataSource.data[index].category = value;
+
+      this.dataSource = new MatTableDataSource(this.dataSource.data);
+
+    });
+    this.selection = new SelectionModel<Book>(true, []);
+  }
+
+  confirmDialog(): void {
+    const message = `Are you sure you want to do this?`;
+
+    const dialogData = new ConfirmationDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    
+    dialogRef.afterClosed().subscribe(dialogResult => {
+
+      if(dialogResult){
+        this.deleteSelected();
+      }
+    });
+  }
+
+openCategoryModal(){
+
+  const dialogData = new ChangeCategoryDialogModel("");
+
+  const dialogRef = this.dialog.open(ChangeCategoryModalComponent, {
+    maxWidth: "400px",
+    data: dialogData
+    
+  });
+
+ console.log(dialogRef);
+
+  dialogRef.afterClosed().subscribe(
+      val =>{
+        if(val){
+          this.updateSelected(val.category);
+        }
+        
+       
+      }
+     
+  );
+  
+}
+
+    
+}
+
+
