@@ -1,4 +1,15 @@
 
-div{
-    width: 70%;
-}
+.main-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+  
+    div {
+    
+      flex: 1;
+      display: flex
+    
+    }
+    
+  }

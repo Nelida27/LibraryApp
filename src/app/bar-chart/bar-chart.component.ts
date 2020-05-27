@@ -33,12 +33,22 @@ export class BarChartComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{ }],
+   yAxes: [{
+    display: true,
+    ticks: {
+    min: 0,
+    stepSize: 1
+    },
+  }]
+   },
+    
   };
   barChartLabels: Label[] = this.barChartX;
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
+
 
   barChartData: ChartDataSets[] = [
     { data: this.barChartY, label: 'Num of Books' }
@@ -86,3 +96,9 @@ export class BarChartComponent implements OnInit {
  
 
 }
+  
+
+
+ 
+
+

@@ -1,6 +1,18 @@
+$border-radius: 10px;
+$selected-color: #cec;
+$even-color: transparent;
+$odd-color: #eee;
+$border-color: #999;
+$link-color: green;
 table {
   width: 100%;
 
+}
+.table-container {
+  width: calc(100% - 60px);
+  margin: 30px 30px 30px 30px;
+
+  
 }
 
 .mat-form-field {
@@ -11,4 +23,28 @@ table {
 }
 .example-button-row {
   display: table-cell;
+}
+
+
+.mat-row {
+  &:not(:last-of-type) {
+    border: none;
+  }
+  transition: background-color 250ms cubic-bezier(0, 0, 0.2, 1);
+
+  &.selected:not(.cdk-drag-preview) {
+    background-color: $selected-color;
+  }
+
+  &:nth-child(odd):not(.selected):not(.cdk-drag-preview) {
+    background-color: $odd-color;
+  }
+
+  &:nth-child(even):not(.selected):not(.cdk-drag-preview) {
+    background-color: $even-color;
+  }
+
+  &.cdk-drag-preview {
+     background-color: transparent;
+  }
 }

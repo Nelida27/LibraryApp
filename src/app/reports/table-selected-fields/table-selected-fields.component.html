@@ -1,47 +1,35 @@
 
-<div class="row">
 <div>
-<mat-list>
-    <mat-toolbar color="primary">
-    <mat-toolbar-row >
-        <span>Available Fields</span>
-      </mat-toolbar-row>
-      </mat-toolbar>
-
+<mat-grid-list cols="2" rowHeight="50vh">
+  <mat-grid-tile>
+    
+    <mat-list>
       
-    <mat-list-item>Item 1  <button  mat-icon-button color="primary" >
+        <mat-toolbar color="primary" >Available Fields</mat-toolbar>
+      
+    <mat-list-item *ngFor="let fields of availableFields">{{fields}}<button mat-icon-button color="primary"
+        (click)="onAdd(fields)">
         <mat-icon> add_circle_outline</mat-icon>
-      </button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 2<button mat-icon-button color="primary">
-        <mat-icon> add_circle_outline</mat-icon>
-      </button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3<button mat-icon-button color="primary" >
-        <mat-icon> add_circle_outline</mat-icon>
-      </button></mat-list-item>
-  </mat-list>
-</div>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
 
-  <div class="float-right">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row >
-        <span>Selected Fields</span>
-      </mat-toolbar-row>
-      </mat-toolbar>
-
-  <mat-list >
-    <mat-list-item>Item 1<button mat-icon-button color="warn" aria-label="">
-        <mat-icon> remove_circle_outline</mat-icon>
-      </button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 2<button mat-icon-button color="warn" aria-label="">
-        <mat-icon> remove_circle_outline</mat-icon>
-      </button></mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3<button mat-icon-button color="warn" aria-label="">
-        <mat-icon> remove_circle_outline</mat-icon>
-      </button></mat-list-item>
   </mat-list>
-</div>
+</mat-grid-tile>
+  <mat-grid-tile> 
+    <mat-list>
+   
+        <mat-toolbar color="primary" >Selected Fields</mat-toolbar>
+     
+    <mat-list-item *ngFor="let field of selectedFields">{{field}}<button mat-icon-button color="warn"
+       (click)="onRemove(field)" >
+        <mat-icon> remove_circle_outline</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+
+  </mat-list>
+</mat-grid-tile>
+
+</mat-grid-list>
 </div>

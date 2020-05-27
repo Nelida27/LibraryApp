@@ -47,7 +47,7 @@ const routes: Routes = [
       component: BarChartComponent
     },
     {
-      path: 'table',
+      path: 'table/:reportId',
       component: TableReportComponent
     }
     ]

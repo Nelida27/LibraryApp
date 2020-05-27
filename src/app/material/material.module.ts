@@ -27,6 +27,7 @@ import {  MatDialogModule } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 
 
+
 const MaterialComponent =[
   NoopAnimationsModule,
   MatTabsModule,

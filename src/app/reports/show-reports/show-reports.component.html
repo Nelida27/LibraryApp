@@ -45,21 +45,21 @@
     <ng-container matColumnDef="reportName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
       <td mat-cell *matCellDef="let report" 
-      [routerLink]="report.reportType==='chart'?['/reports/chart']:['/reports/table']">
-        {{report.reportName}} </td>
+      [routerLink]="report.reportType==='chart'?['/reports/chart']:['/reports/table/'+report.reportId]">
+        {{report.reportName | titlecase}} </td>
 
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="reportDesc">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-      <td mat-cell *matCellDef="let report"> {{report.reportDesc}} </td>
+      <td mat-cell *matCellDef="let report"> {{report.reportDesc | titlecase}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="reportType">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-      <td mat-cell *matCellDef="let report"> {{report.reportType}} </td>
+      <td mat-cell *matCellDef="let report"> {{report.reportType | titlecase}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
