@@ -1,15 +1,29 @@
+.mat-list{
+  width: 45%;
+  border: solid 1px lightgray;
+  border-top: none;
+  height: 80vh;
+  
+}
+.mat-list-base{
+padding-top: 0px;
+}
 
-.main-div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  
-  
-    div {
-    
-      flex: 1;
-      display: flex
-    
-    }
-    
-  }
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-left:auto;
+
+}
+.mat-toolbar {
+height:8vh;
+}
+
+
+
+.mat-list-base .mat-list-item .mat-list-item-content{
+  display:flex;
+  justify-content: space-between;
+}
+

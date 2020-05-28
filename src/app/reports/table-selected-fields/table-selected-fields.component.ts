@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from 'src/app/service/report.service';
+import {FilterPipe} from "../../filter.pipe";
 
 
 @Component({
@@ -8,12 +9,12 @@ import { ReportService } from 'src/app/service/report.service';
   styleUrls: ['./table-selected-fields.component.scss']
 })
 export class TableSelectedFieldsComponent implements OnInit {
-
+  filterdata:string ="";
   availableFields:string[]=[];
   selectedFields:string[]=[];
  
 
-  constructor(private reportService:ReportService) { }
+  constructor(private reportService:ReportService,public filter:FilterPipe) { }
 
   ngOnInit() {
   this.getAllFields();
@@ -22,16 +23,15 @@ export class TableSelectedFieldsComponent implements OnInit {
   }
 
 
-
   getAllFields(){
     this.availableFields = this.reportService.getAvailable();
-    console.log(this.availableFields);
+  
     return this.availableFields;
     
   }
 
   getAllSelected(){
-    console.log(this.selectedFields);
+   
     this.selectedFields = this.reportService.getSelectedFields();
     return this.selectedFields;
   }

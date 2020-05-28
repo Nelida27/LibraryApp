@@ -18,6 +18,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { TableReportComponent } from './reports/table-report/table-report.component';
 import { TableSelectedFieldsComponent } from './reports/table-selected-fields/table-selected-fields.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TableSelectedFieldsComponent } from './reports/table-selected-fields/ta
     ShowReportsComponent,
     BarChartComponent,
     TableReportComponent,
-    TableSelectedFieldsComponent
+    TableSelectedFieldsComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { TableSelectedFieldsComponent } from './reports/table-selected-fields/ta
     ChartsModule
 
   ],
-  providers: [],
+  providers: [ FilterPipe],
   entryComponents: [ConfirmationDialogComponent,ChangeCategoryModalComponent],
   bootstrap: [AppComponent]
 })

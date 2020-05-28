@@ -86,7 +86,7 @@ export class ShowReportsComponent implements OnInit {
   }
 
   confirmDialog(): void {
-    const message = `Are you sure you want to do this?`;
+    const message = `Are you sure you want to delete these?`;
 
     const dialogData = new ConfirmationDialogModel("Confirm Action", message);
 

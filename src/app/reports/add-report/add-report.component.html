@@ -1,15 +1,18 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Create Report</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+
 
 <div class="container mt-5">
 
-  <div class="row bg-white pb-4 mt-3">
+  <div class="row">
 
-    <div class="col-md-8 mt-5">
+    <div class="col-md-6 form-div">
       <form class="example-form" [formGroup]="addReportForm" (ngSubmit)="onSubmit()">
+        <mat-card class="mb-5">
+          <mat-card-header>
+            <mat-card-title align="center">
+              Add Book
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content align="center">
         <div class="form-group">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Name" formControlName="reportName">
@@ -27,7 +30,7 @@
 
 
         <div>
-          <mat-form-field>
+          <mat-form-field class="example-full-width">
             <mat-label>Choose an option</mat-label>
             <mat-select formControlName="reportType">
               <mat-option value="table">Table</mat-option>
@@ -37,15 +40,19 @@
 
         </div>
         
+      </mat-card-content>
+      <mat-card-actions align="center" class="mb-2">
        
-       
-        <button mat-flat-button class="mr-2" type="submit" color="primary">Save</button>
-        <button mat-flat-button type="button" color="primary">Cancel</button>
-        <app-table-selected-fields *ngIf="addReportForm.get('reportType').value === 'table'">
-       
-        </app-table-selected-fields>
+        <button mat-flat-button class="mr-5" type="submit" color="primary">Save</button>
+        <button mat-flat-button type="button" color="warn" (click)="resetFields()">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
         
       </form>
     </div>
+
   </div>
+  <app-table-selected-fields *ngIf="addReportForm.get('reportType').value === 'table'">
+       
+  </app-table-selected-fields>
 </div>

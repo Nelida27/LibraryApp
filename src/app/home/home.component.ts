@@ -114,9 +114,9 @@ export class HomeComponent implements OnInit {
   }
 
   confirmDialog(): void {
-    const message = `Are you sure you want to do this?`;
+    const message = `Are you sure you want to delete?`;
 
-    const dialogData = new ConfirmationDialogModel("Confirm Action", message);
+    const dialogData = new ConfirmationDialogModel("Confirm Delete", message);
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: "400px",

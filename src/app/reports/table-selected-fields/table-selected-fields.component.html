@@ -1,35 +1,37 @@
+<div class="row mb-5">
+  <mat-list class="mr-5">
 
-<div>
-<mat-grid-list cols="2" rowHeight="50vh">
-  <mat-grid-tile>
-    
-    <mat-list>
-      
-        <mat-toolbar color="primary" >Available Fields</mat-toolbar>
-      
-    <mat-list-item *ngFor="let fields of availableFields">{{fields}}<button mat-icon-button color="primary"
-        (click)="onAdd(fields)">
-        <mat-icon> add_circle_outline</mat-icon>
+    <mat-toolbar color="primary">Available Fields</mat-toolbar>
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput  [(ngModel)]="filterdata" placeholder="Ex. ium">
+    </mat-form-field>
+
+    <mat-list-item *ngFor="let fields of availableFields |  filter: filterdata">{{fields | titlecase }}
+  
+      <button mat-icon-button  color="primary" align="end">
+        <mat-icon (click)="onAdd(fields)"> add_circle_outline</mat-icon>
       </button>
       <mat-divider></mat-divider>
     </mat-list-item>
 
   </mat-list>
-</mat-grid-tile>
-  <mat-grid-tile> 
-    <mat-list>
-   
-        <mat-toolbar color="primary" >Selected Fields</mat-toolbar>
-     
-    <mat-list-item *ngFor="let field of selectedFields">{{field}}<button mat-icon-button color="warn"
-       (click)="onRemove(field)" >
-        <mat-icon> remove_circle_outline</mat-icon>
+
+
+  <mat-list>
+
+    <mat-toolbar color="primary">Selected Fields</mat-toolbar>
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="filterSelected" placeholder="Ex. ium">
+    </mat-form-field>
+    <mat-list-item *ngFor="let field of selectedFields |  filter: filterSelected">{{field | titlecase}}
+      <button mat-icon-button color="warn" 
+        (click)="onRemove(field)">
+        <mat-icon > remove_circle_outline</mat-icon>
       </button>
       <mat-divider></mat-divider>
     </mat-list-item>
 
   </mat-list>
-</mat-grid-tile>
-
-</mat-grid-list>
 </div>
