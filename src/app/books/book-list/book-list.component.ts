@@ -3,23 +3,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
-import { Book } from '../models/book';
-import { BookService } from '../service/book.service';
-import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
-import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../shared/change-category-modal/change-category-modal.component';
+import { Book } from '../../models/book';
+import { BookService } from '../../service/book.service';
+import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../../shared/change-category-modal/change-category-modal.component';
 import { MatDialog,MatDialogConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
 
-
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-book-list',
+  templateUrl: './book-list.component.html',
+  styleUrls: ['./book-list.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class BookListComponent implements OnInit {
  
   displayedColumns: string[] = ['select', 'id', 'title', 'description', 'author', 'category', 'actions'];
   dataSource = new MatTableDataSource(this.getBooks());
