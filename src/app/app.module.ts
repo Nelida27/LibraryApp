@@ -8,17 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from './material/material.module';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { ChangeCategoryModalComponent } from './change-category-modal/change-category-modal.component';
-import { ReportsComponent } from './reports/reports.component';
-import { AddReportComponent } from './reports/add-report/add-report.component';
-import { EditReportComponent } from './reports/edit-report/edit-report.component';
-import { ShowReportsComponent } from './reports/show-reports/show-reports.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { ChangeCategoryModalComponent } from './shared/change-category-modal/change-category-modal.component';
 import { ChartsModule } from 'ng2-charts';
-import { TableReportComponent } from './reports/table-report/table-report.component';
-import { TableSelectedFieldsComponent } from './reports/table-selected-fields/table-selected-fields.component';
-import { FilterPipe } from './filter.pipe';
+
+import {ReportsModule} from './reports/reports.module';
+
 
 @NgModule({
   declarations: [
@@ -28,14 +23,7 @@ import { FilterPipe } from './filter.pipe';
     HomeComponent,
     ConfirmationDialogComponent,
     ChangeCategoryModalComponent,
-    ReportsComponent,
-    AddReportComponent,
-    EditReportComponent,
-    ShowReportsComponent,
-    BarChartComponent,
-    TableReportComponent,
-    TableSelectedFieldsComponent,
-    FilterPipe
+
   ],
   imports: [
     BrowserModule,
@@ -44,10 +32,12 @@ import { FilterPipe } from './filter.pipe';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    ReportsModule
+    
 
   ],
-  providers: [ FilterPipe],
+
   entryComponents: [ConfirmationDialogComponent,ChangeCategoryModalComponent],
   bootstrap: [AppComponent]
 })

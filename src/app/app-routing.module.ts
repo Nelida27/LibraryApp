@@ -8,7 +8,8 @@ import { AddReportComponent } from './reports/add-report/add-report.component';
 import { EditReportComponent } from './reports/edit-report/edit-report.component';
 import { ShowReportsComponent } from './reports/show-reports/show-reports.component';
 import { TableReportComponent } from './reports/table-report/table-report.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { BarChartComponent } from './reports/bar-chart/bar-chart.component';
+
 TableReportComponent
 
 

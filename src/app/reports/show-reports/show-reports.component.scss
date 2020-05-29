@@ -1,12 +1,12 @@
-
 table {
   width: 100%;
 
 }
+
 .table-container {
   width: calc(100% - 60px);
   margin: auto;
-background-color: white;
+  background-color: white;
   
 }
 
@@ -28,7 +28,8 @@ background-color: white;
   margin: auto;
 }
 .mat-row.highlighted {
-  background:#b6d6fa
-;
+  background:#b6d6fa;
 }
-  
+.active-link{
+text-decoration: underline;
+  }

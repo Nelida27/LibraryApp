@@ -5,6 +5,7 @@ import { Report } from '../models/report';
   providedIn: 'root'
 })
 export class ReportService {
+
   availableFields : string[]=["category","title","description","author","date"];
   selectedFields :string[]= [];
   el:any;
@@ -78,18 +79,13 @@ getSelectedFields(){
   onAddClick(fields){
     
     let index = this.availableFields.indexOf(fields);
-    //this.el=this.availableFields.splice(index,1);
     this.selectedFields.push(...this.availableFields.splice(index, 1));
-    //this.selectedFields.push(this.el);
-    
     
   }
   onRemoveClick(field){
     
     let index = this.selectedFields.indexOf(field);
     this.availableFields.push(...this.selectedFields.splice(index, 1));
-    //this.el=this.selectedFields.splice(index,1);
-    //this.availableFields.push(this.el);
   
   }
 

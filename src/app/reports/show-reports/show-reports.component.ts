@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { Report } from '../../models/report';
 import {ReportService } from '../../service/report.service';
 import { ActivatedRoute, Router,RouterLinkActive } from '@angular/router';
-import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog,MatDialogConfig } from '@angular/material';
 
 @Component({

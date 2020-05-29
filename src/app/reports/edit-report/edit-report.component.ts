@@ -9,18 +9,17 @@ import { Report } from 'src/app/models/report';
   templateUrl: './edit-report.component.html',
   styleUrls: ['./edit-report.component.scss']
 })
+
 export class EditReportComponent implements OnInit {
   report:Report;
   editReportForm:FormGroup;
   msg:string = "";
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private reportService:ReportService,
     private router:Router,
     private route: ActivatedRoute
-   ) {
-
-
-    }
+   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -53,12 +52,9 @@ export class EditReportComponent implements OnInit {
   onSubmit(){
 
     if(this.editReportForm.valid){
-     
       this.reportService.reportEdit(this.editReportForm.value);
-
       this.router.navigateByUrl("/reports");
-   }
-      else {
+   }else {
       this.msg = 'Please complete form';
     }
 

@@ -1,7 +1,5 @@
 <div class="container mt-5">
-
   <div class="row ">
-
     <div class="col-md-6 form-div">
       <form class="example-form" [formGroup]="editReportForm" (ngSubmit)="onSubmit()">
         <mat-card class="mb-5">
@@ -15,18 +13,12 @@
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Name" formControlName="reportName">
               </mat-form-field>
-
             </div>
-
             <div>
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Description" formControlName="reportDesc">
               </mat-form-field>
-
             </div>
-
-
-
             <div>
               <mat-form-field class="example-full-width">
                 <mat-label>Choose an option</mat-label>
@@ -35,7 +27,6 @@
                   <mat-option value="chart">Chart</mat-option>
                 </mat-select>
               </mat-form-field>
-
             </div>
           </mat-card-content>
           <mat-card-actions align="center" class="mb-2">
@@ -44,12 +35,7 @@
           </mat-card-actions>
         </mat-card>
       </form>
-
     </div>
-
   </div>
-
-
   <app-table-selected-fields *ngIf="editReportForm.get('reportType').value === 'table'"></app-table-selected-fields>
-
 </div>

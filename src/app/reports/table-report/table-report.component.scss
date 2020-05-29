@@ -1,23 +1,12 @@
 
-$border-radius: 10px;
-$selected-color: #cec;
-$even-color: transparent;
-$odd-color: #eee;
-$border-color: #999;
-$link-color: green;
-
-
 .table-container {
     width: calc(100% - 60px);
     margin: 30px 30px 30px 30px;
-  
-    
   }
 
   table {
     width: 100%;
   }
-
 
   .top-header {
     height: 50px;
@@ -25,7 +14,6 @@ $link-color: green;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  
   
     div:all {
       margin-left: 20px;

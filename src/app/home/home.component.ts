@@ -5,8 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
-import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../change-category-modal/change-category-modal.component';
+import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
+import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../shared/change-category-modal/change-category-modal.component';
 import { MatDialog,MatDialogConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 

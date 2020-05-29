@@ -7,11 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ReportService } from 'src/app/service/report.service';
 import { BookService } from 'src/app/service/book.service';
-import { Book } from 'src/app/models/book';
-import { Report } from 'src/app/models/report';
 import * as jsPDF from 'jspdf'
-import { empty } from 'rxjs';
-
 
 
 @Component({
@@ -20,6 +16,7 @@ import { empty } from 'rxjs';
   styleUrls: ['./table-report.component.scss'],
 
 })
+
 export class TableReportComponent implements OnInit {
 
   displayedColumns: string[] = [];
@@ -32,15 +29,12 @@ export class TableReportComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private reportService: ReportService,
+  constructor(
+    private reportService: ReportService,
     private bookService: BookService,
     private router: Router,
-    private route: ActivatedRoute) {
-
-
-
-
-  }
+    private route: ActivatedRoute
+    ) {}
 
   ngOnInit() {
 
@@ -50,43 +44,36 @@ export class TableReportComponent implements OnInit {
     this.getHeaders();
     this.getBooks();
   }
-  /** Whether the number of selected elements matches the total number of rows. */
-
 
 
 
   getHeaders() {
-
-    if(this.reportService.getSelectedFields().length==0){
+    if (this.reportService.getSelectedFields().length == 0) {
       this.reportService.getAvailable().forEach(item => {
         this.displayedColumns.push(item);
       });
     }
-    else{
+    else {
       this.reportService.getSelectedFields().forEach(item => {
         this.displayedColumns.push(item);
       });
     }
-    
 
     return this.displayedColumns;
   }
 
+
   getBooks() {
-
     return this.bookService.getAllBooks();
-
   }
 
   exportToPdf() {
     const doc = new jsPDF();
-
     const specialElementHandlers = {
       '#editor': function (element, renderer) {
         return true;
       }
     };
-
     const pdfTable = this.pdfTable.nativeElement;
 
     doc.fromHTML(pdfTable.innerHTML, 15, 15, {
