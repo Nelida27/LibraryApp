@@ -34,6 +34,11 @@ export class BookListComponent implements OnInit {
 
   ngOnInit() {
 
+    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+      return data.title.toLowerCase().includes(filter) 
+      || data.author.toLowerCase().includes(filter) || data.category.toLowerCase().includes(filter);
+    };
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     

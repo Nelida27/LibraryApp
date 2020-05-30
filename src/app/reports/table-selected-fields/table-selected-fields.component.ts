@@ -10,7 +10,7 @@ import { FilterPipe } from "../../shared/filter.pipe";
 })
 
 export class TableSelectedFieldsComponent implements OnInit {
-
+  filterAvailable: string = "";
   filterSelected: string = "";
   availableFields: string[] = [];
   selectedFields: string[] = [];

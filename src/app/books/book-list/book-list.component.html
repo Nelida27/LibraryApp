@@ -6,8 +6,8 @@
 </div>
 <div class="mat-elevation-z8 mb-3">
   <mat-form-field>
-    <mat-label class="ml-2">Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+    <mat-label class="ml-2">Filter By Title, Author or Category</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort>

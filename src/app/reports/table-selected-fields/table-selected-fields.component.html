@@ -4,10 +4,10 @@
 
     <mat-form-field>
       <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="filterSelected" placeholder="Ex. ium">
+      <input matInput [(ngModel)]="filterAvailable" placeholder="Ex. ium">
     </mat-form-field>
     
-    <mat-list-item  *ngFor="let fieldA of availableFields |  filter: filterSelected">{{fieldA | titlecase }}
+    <mat-list-item  *ngFor="let fieldA of availableFields |  filter: filterAvailable">{{fieldA | titlecase }}
       <span class="fx-spacer"></span>
       <button mat-icon-button color="primary">
         <mat-icon (click)="onAddFields(fieldA)"> add_circle_outline</mat-icon>
