@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ReportService } from 'src/app/service/report.service';
 import { BookService } from 'src/app/service/book.service';
+import { Report } from 'src/app/models/report';
+import { FormGroup, Validators, FormControl,FormBuilder } from '@angular/forms';
 import * as jsPDF from 'jspdf'
 
 
@@ -22,7 +24,8 @@ export class TableReportComponent implements OnInit {
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource(this.getBooks());
   selection = new SelectionModel<any>(true, []);
-
+  report:Report;
+  editReportForm:FormGroup;
 
   @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
   @ViewChild('TABLE', { static: true }) table: ElementRef;
@@ -32,12 +35,18 @@ export class TableReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private bookService: BookService,
-    private router: Router,
+    private fb: FormBuilder,
     private route: ActivatedRoute
     ) {}
 
   ngOnInit() {
 
+    this.route.params.subscribe(param => {
+      if (param) {
+        this.report = this.reportService.getReport(param.reportId);
+        this.editForm();
+      }
+    });
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -45,11 +54,20 @@ export class TableReportComponent implements OnInit {
     this.getBooks();
   }
 
+  editForm(){
+    this.editReportForm = this.fb.group({
+      reportId:[this.report.reportId],
+      reportName:[this.report.reportName,Validators.required],
+      reportDesc:[this.report.reportDesc,Validators.required],
+     
+    });
+
+  }
 
 
   getHeaders() {
     if (this.reportService.getSelectedFields().length == 0) {
-      this.reportService.getAvailable().forEach(item => {
+      this.reportService.getAvailableFields().forEach(item => {
         this.displayedColumns.push(item);
       });
     }
@@ -75,12 +93,10 @@ export class TableReportComponent implements OnInit {
       }
     };
     const pdfTable = this.pdfTable.nativeElement;
-
     doc.fromHTML(pdfTable.innerHTML, 15, 15, {
       width: 190,
       'elementHandlers': specialElementHandlers
     });
-
     doc.save('tableToPdf.pdf');
   }
 
@@ -89,7 +105,6 @@ export class TableReportComponent implements OnInit {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
     /* save to file */
     XLSX.writeFile(wb, 'Report.xlsx');
 

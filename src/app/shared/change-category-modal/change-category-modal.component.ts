@@ -10,16 +10,18 @@ import { BookService } from '../../service/book.service';
   styleUrls: ['./change-category-modal.component.scss']
 })
 export class ChangeCategoryModalComponent implements OnInit {
-  form: FormGroup;
+  modalForm: FormGroup;
   category: string;
 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
     private dialogRef: MatDialogRef<ChangeCategoryModalComponent>,
+    
     @Inject(MAT_DIALOG_DATA) { category }: Book) {
     this.category = category;
-    this.form = fb.group({
+  
+    this.modalForm = fb.group({
       category: [category, Validators.required],
     });
 
@@ -29,7 +31,7 @@ export class ChangeCategoryModalComponent implements OnInit {
   }
 
   save(): void {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close(this.modalForm.value);
   }
 
   close(): void {

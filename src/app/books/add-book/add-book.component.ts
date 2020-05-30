@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddBookComponent implements OnInit {
  
   addBookForm : FormGroup;
-  msg:String = '';
 
   constructor(
     private fb: FormBuilder,
@@ -53,9 +52,7 @@ export class AddBookComponent implements OnInit {
       this.resetFields();
       this.router.navigateByUrl("/");
     }
-      else {
-      this.msg = 'Please complete form';
-    }
+      
 
   }
   getCategoryList(){

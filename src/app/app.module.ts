@@ -10,6 +10,8 @@ import { ChangeCategoryModalComponent } from './shared/change-category-modal/cha
 import { ChartsModule } from 'ng2-charts';
 import { ReportsModule } from './reports/reports.module';
 import { BooksModule } from './books/books.module';
+import { MAT_DATE_LOCALE } from '@angular/material';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -17,6 +19,7 @@ import { BooksModule } from './books/books.module';
     AppComponent,
     ConfirmationDialogComponent,
     ChangeCategoryModalComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [
@@ -32,6 +35,7 @@ import { BooksModule } from './books/books.module';
 
 
   ],
+  providers:[{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
 
   entryComponents: [ConfirmationDialogComponent, ChangeCategoryModalComponent],
   bootstrap: [AppComponent]

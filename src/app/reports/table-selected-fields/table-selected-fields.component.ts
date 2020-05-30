@@ -10,7 +10,8 @@ import { FilterPipe } from "../../shared/filter.pipe";
 })
 
 export class TableSelectedFieldsComponent implements OnInit {
-  filterdata: string = "";
+
+  filterSelected: string = "";
   availableFields: string[] = [];
   selectedFields: string[] = [];
 
@@ -20,27 +21,28 @@ export class TableSelectedFieldsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllFields();
-    this.getAllSelected();
+
+    this.getAvailableFields();
+    this.getSelectedFields();
 
   }
 
-  getAllFields() {
-    this.availableFields = this.reportService.getAvailable();
+  getAvailableFields() {
+    this.availableFields = this.reportService.getAvailableFields();
     return this.availableFields;
   }
 
-  getAllSelected() {
+  getSelectedFields() {
     this.selectedFields = this.reportService.getSelectedFields();
     return this.selectedFields;
   }
 
-  onAdd(fields) {
-    this.reportService.onAddClick(fields);
+  onAddFields(fieldA) {
+    this.reportService.onAddClick(fieldA);
   }
 
-  onRemove(field) {
-    this.reportService.onRemoveClick(field);
+  onRemoveFields(fieldS) {
+    this.reportService.onRemoveClick(fieldS);
   }
 
 }

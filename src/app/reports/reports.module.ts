@@ -37,7 +37,8 @@ import { FilterPipe } from '../shared/filter.pipe';
   
   
   ],
-  providers: [ FilterPipe],
+  providers: [FilterPipe],
+  
   exports:[
     AddReportComponent,
     EditReportComponent,

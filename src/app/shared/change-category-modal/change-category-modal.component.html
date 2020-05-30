@@ -1,5 +1,5 @@
-<mat-dialog-content [formGroup]="form">
-  <h6>Choose a category</h6>
+<mat-dialog-content [formGroup]="modalForm">
+  <h6>Select a category</h6>
   <mat-form-field class="example-full-width">
     <mat-label>Category</mat-label>
     <mat-select formControlName="category">
@@ -7,8 +7,7 @@
     </mat-select>
   </mat-form-field>
 </mat-dialog-content>
-
-<mat-dialog-actions>
+<mat-dialog-actions class="mb-1">
   <button class="mat-raised-button mr-3" (click)="close()">Close</button>
   <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
 </mat-dialog-actions>

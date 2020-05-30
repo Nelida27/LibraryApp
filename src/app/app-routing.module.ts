@@ -9,8 +9,10 @@ import { EditReportComponent } from './reports/edit-report/edit-report.component
 import { ShowReportsComponent } from './reports/show-reports/show-reports.component';
 import { TableReportComponent } from './reports/table-report/table-report.component';
 import { BarChartComponent } from './reports/bar-chart/bar-chart.component';
+import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 
-TableReportComponent
+
+
 
 
 const routes: Routes = [
@@ -52,6 +54,10 @@ const routes: Routes = [
       component: TableReportComponent
     }
     ]
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 
 ];

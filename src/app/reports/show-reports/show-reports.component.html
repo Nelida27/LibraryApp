@@ -6,7 +6,7 @@
 
 <div class="mat-elevation-z8" mb-3>
   <mat-form-field>
-    <mat-label>Filter</mat-label>
+    <mat-label class="ml-2">Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
   </mat-form-field>
   <!--TABLE-->
@@ -49,8 +49,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
       <td mat-cell *matCellDef="let report" class="example-button-row">
-        <button mat-raised-button color="primary" class="mr-1" routerLink="/reports/editreport/{{report.reportId}}">Edit</button>
-        <button mat-raised-button color="warn" (click)="deleteRowData(report)">Delete</button>
+        <button mat-icon-button color="primary"  routerLink="/reports/editreport/{{report.reportId}}"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deleteRowData(report)"><mat-icon>delete</mat-icon></button>
       </td>
     </ng-container>
 

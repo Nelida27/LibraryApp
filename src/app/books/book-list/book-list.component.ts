@@ -31,17 +31,16 @@ export class BookListComponent implements OnInit {
 
   constructor(private bookService: BookService,public dialog: MatDialog,private router: Router) { }
   currentRouter = this.router.url;
-  ngOnInit() {
 
+  ngOnInit() {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     
-    
   }
 
   getBooks(){
-    console.log(this.bookService.getAllBooks());
+
     return this.bookService.getAllBooks();
     
   }
@@ -87,22 +86,15 @@ export class BookListComponent implements OnInit {
 
   deleteSelected() {
     this.selection.selected.forEach(item => {
-      //let index: number = this.dataSource.data.findIndex(d => d === item);
-       console.log(item.id);
-      //this.dataSource.data.splice(index, 1);
       this.deleteRowData(item);
-      //this.dataSource = new MatTableDataSource(this.dataSource.data);
-
     });
-    //this.selection = new SelectionModel<Book>(true, []);
+
   }
 
-  updateSelected(value){
+  updateCategory(value){
     this.selection.selected.forEach(item => {
       let index: number = this.dataSource.data.findIndex(d => d === item);
 
-
-      //this.dataSource.data.splice(index, 1);
       this.dataSource.data[index].category = value;
 
       this.dataSource = new MatTableDataSource(this.dataSource.data);
@@ -110,6 +102,7 @@ export class BookListComponent implements OnInit {
     });
     this.selection = new SelectionModel<Book>(true, []);
   }
+
 
   confirmDialog(): void {
     const message = `Are you sure you want to delete?`;
@@ -145,10 +138,9 @@ openCategoryModal(){
   dialogRef.afterClosed().subscribe(
       val =>{
         if(val){
-          this.updateSelected(val.category);
+          this.updateCategory(val.category);
         }
         
-       
       }
      
   );

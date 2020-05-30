@@ -5,8 +5,8 @@
     <div class="col-md-6  form-div">
       <form class="example-form" [formGroup]="addBookForm" novalidate (ngSubmit)="onSubmit()">
         <mat-card>
-          <mat-card-header>
-            <mat-card-title align="center">
+          <mat-card-header class="ml-2">
+            <mat-card-title>
               Add Book
             </mat-card-title>
           </mat-card-header>
@@ -42,16 +42,16 @@
             <div>
               <mat-form-field class="example-full-width">
                 <mat-label>Date Published</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="date">
+                <input matInput [matDatepicker]="picker" formControlName="date" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker [calendarHeaderComponent]="exampleHeader"></mat-datepicker>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
             </div>
           </mat-card-content>
           <mat-card-actions align="center" class="mb-2">
             <button mat-flat-button class="mr-5" type="submit" color="primary">Save</button>
-            <button mat-flat-button type="button" color="warn" (click)="resetFields()">Cancel</button>
+            <button mat-flat-button type="button" color="warn" (click)="resetFields()">Reset</button>
           </mat-card-actions>
         </mat-card>
       </form>

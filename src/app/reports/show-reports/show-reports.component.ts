@@ -5,10 +5,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { Report } from '../../models/report';
-import {ReportService } from '../../service/report.service';
-import { ActivatedRoute, Router,RouterLinkActive } from '@angular/router';
+import { ReportService } from '../../service/report.service';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { MatDialog,MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-show-reports',
@@ -16,14 +16,19 @@ import { MatDialog,MatDialogConfig } from '@angular/material';
   styleUrls: ['./show-reports.component.scss']
 })
 export class ShowReportsComponent implements OnInit {
+
   displayedColumns: string[] = ['select', 'reportId', 'reportName', 'reportDesc', 'reportType', 'actions'];
   dataSource = new MatTableDataSource(this.getReports());
   selection = new SelectionModel<Report>(true, []);
-  
-  
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private reportService: ReportService,private router:Router,private dialog:MatDialog) { }
+
+  constructor(
+    private reportService: ReportService,
+    private router: Router,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -60,50 +65,45 @@ export class ShowReportsComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.reportId + 1}`;
   }
+
   reloadComponent() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/reports']);
-}
-  deleteRowData(report:Report):void {
-  
- 
+  }
+  deleteRowData(report: Report): void {
+
     this.reportService.deleteRow(report);
     this.reloadComponent();
-    
-  }
-  deleteSelected(){
-  this.selection.selected.forEach(item => {
-    //let index: number = this.dataSource.data.findIndex(d => d === item);
- 
-    //this.dataSource.data.splice(index, 1);
-    this.deleteRowData(item);
-    //this.dataSource = new MatTableDataSource(this.dataSource.data);
 
-  });
+  }
+  deleteSelected() {
+    this.selection.selected.forEach(item => {
+
+      this.deleteRowData(item);
+
+    });
 
 
   }
 
   confirmDialog(): void {
-    const message = `Are you sure you want to delete these?`;
 
-    const dialogData = new ConfirmationDialogModel("Confirm Action", message);
+    const message = `Are you sure you want to delete?`;
+
+    const dialogData = new ConfirmationDialogModel("Confirm Delete", message);
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: "400px",
       data: dialogData
     });
 
-    
     dialogRef.afterClosed().subscribe(dialogResult => {
 
-      if(dialogResult){
+      if (dialogResult) {
         this.deleteSelected();
       }
     });
   }
-
-
 
 }

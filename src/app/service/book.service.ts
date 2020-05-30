@@ -10,17 +10,13 @@ export class BookService {
 
   bookCounter:number=0;
   bookNr;
-  categoryList: string[] = [
-    'Math', 'History', 'TIK', 'Novels', 'Java', 'Python', 'test'
-    
-  ];
+  categoryList: string[] = ['Classic', 'Drama', 'Fairy Tale', 'Fable', 'Math', 'Fantasy', 'Biography'];
   idCounter;
   bookData: Book[];
 
   constructor() { }
 
   getAllBooks(): Book[] {
-
 
     if (localStorage.getItem('books') === null) {
       this.bookData = [];
@@ -71,29 +67,17 @@ export class BookService {
 
   deleteRow(book: Book) {
 
-
     JSON.parse(localStorage.getItem('books'));
-    //const index = this.bookData.findIndex(c => c.id === Id);
-    //this.bookData.splice(index, 1);   
-    // localStorage.setItem('books', JSON.stringify(this.bookData));
     let index = this.bookData.indexOf(book);
     this.bookData.splice(index, 1);
-
-    //for (let i = 0; i < this.bookData.length; i++) {
-    //if (book == this.bookData[i]) {
-    //this.bookData.splice(i, 1);
     localStorage.setItem('books', JSON.stringify(this.bookData));
-    // }
-    // }
-
+ 
   }
 
   getCategory() {
     return this.categoryList;
 
   }
-
- 
 
 }
 

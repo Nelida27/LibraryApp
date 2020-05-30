@@ -11,9 +11,10 @@ import { Report } from 'src/app/models/report';
 })
 
 export class EditReportComponent implements OnInit {
+
   report:Report;
   editReportForm:FormGroup;
-  msg:string = "";
+
   constructor(
     private fb: FormBuilder,
     private reportService:ReportService,
@@ -42,10 +43,10 @@ export class EditReportComponent implements OnInit {
 
   resetFields(){
     this.editReportForm = this.fb.group({
-      reportId:[""],
-      reportName:["",Validators.required],
-      reportDesc:["",Validators.required],
-      reportType:["",Validators.required]
+      reportId:[this.report.reportId],
+      reportName:[this.report.reportName,Validators.required],
+      reportDesc:[this.report.reportDesc,Validators.required],
+      reportType:[this.report.reportType,Validators.required]
     });
   }
 
@@ -54,9 +55,7 @@ export class EditReportComponent implements OnInit {
     if(this.editReportForm.valid){
       this.reportService.reportEdit(this.editReportForm.value);
       this.router.navigateByUrl("/reports");
-   }else {
-      this.msg = 'Please complete form';
-    }
+   }
 
   }
 

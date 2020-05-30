@@ -18,9 +18,7 @@ padding-top: 0px;
 .mat-toolbar {
 height:8vh;
 }
-
-.mat-list-base .mat-list-item .mat-list-item-content{
-  display:flex;
-  justify-content: space-between;
+.fx-spacer {
+  flex: 1 1 auto;
 }
 

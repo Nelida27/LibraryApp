@@ -2,28 +2,42 @@
 .table-container {
     width: calc(100% - 60px);
     margin: 30px 30px 30px 30px;
+    background-color: white;
   }
 
   table {
     width: 100%;
   }
-
+  .primary{
+    color:#3f51b5;
+      }
+  .bold{
+    font-weight: bold;
+      }
+.aligment{
+  margin-left: 15px;
+}
+.aligmentD{
+  margin-left: 29px;
+}
   .top-header {
     height: 50px;
-    font-size: 14px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   
     div:all {
-      margin-left: 20px;
+      margin-left: 10px;
       flex: 1;
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      
   
     
     }
     
   }
-  
+.mat-icon{
+  color:#3f51b5 ;
+}

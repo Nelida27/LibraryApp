@@ -14,8 +14,7 @@ import { Book } from 'src/app/models/book';
 export class EditBookComponent implements OnInit {
   book: Book;
   createEditForm: FormGroup;
-  msg:string = "";  
-
+ 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
@@ -47,12 +46,12 @@ export class EditBookComponent implements OnInit {
 
   resetFields(){
     this.createEditForm = this.fb.group({
-      id:[""],
-      title:["",Validators.required],
-      description:["",Validators.required],
-      author:["",Validators.required],
-      category:["",Validators.required],
-      date:["",Validators.required],
+      id:[this.book.id],
+      title:[this.book.title,Validators.required],
+      description:[this.book.description,Validators.required],
+      author:[this.book.author,Validators.required],
+      category:[this.book.category,Validators.required],
+      date:[this.book.date,Validators.required]
     });
   }
 
@@ -65,9 +64,7 @@ export class EditBookComponent implements OnInit {
 
       this.router.navigateByUrl("/");
    }
-      else {
-      this.msg = 'Please complete form';
-    }
+  
 
   }
   getCategoryList(){

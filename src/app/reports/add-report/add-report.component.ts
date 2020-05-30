@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class AddReportComponent implements OnInit {
 
   addReportForm: FormGroup;
-  msg: string = "";
   constructor(
     private fb: FormBuilder,
     private reportService: ReportService,
@@ -42,9 +41,6 @@ export class AddReportComponent implements OnInit {
       this.reportService.addReport(this.addReportForm.value);
       this.resetFields();
       this.router.navigateByUrl("/reports");
-    }
-    else {
-      this.msg = 'Please complete form';
     }
 
 

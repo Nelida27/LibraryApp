@@ -6,9 +6,9 @@ import { Report } from '../models/report';
 })
 export class ReportService {
 
-  availableFields : string[]=["category","title","description","author","date"];
-  selectedFields :string[]= [];
-  el:any;
+  availableFields: string[] = ["category", "title", "description", "author", "date"];
+  selectedFields: string[] = [];
+  el: any;
   idCounter;
   reports: Report[] = [];
 
@@ -51,8 +51,7 @@ export class ReportService {
   }
 
   addReport(report: Report) {
-    //report.reportId = this.reports.length + 1;
-    //this.reports.push(report);
+
     this.idCounter = localStorage.getItem('counter-reports') || 1;
     report.reportId = this.idCounter++;
     localStorage.setItem('counter-reports', JSON.stringify(this.idCounter));
@@ -68,25 +67,25 @@ export class ReportService {
     }
   }
 
-getAvailable(){
-  return this.availableFields;
-}
+  getAvailableFields() {
+    return this.availableFields;
+  }
 
-getSelectedFields(){
-  return this.selectedFields;
-}
+  getSelectedFields() {
+    return this.selectedFields;
+  }
 
-  onAddClick(fields){
-    
+  onAddClick(fields) {
+
     let index = this.availableFields.indexOf(fields);
     this.selectedFields.push(...this.availableFields.splice(index, 1));
-    
+
   }
-  onRemoveClick(field){
-    
+  onRemoveClick(field) {
+
     let index = this.selectedFields.indexOf(field);
     this.availableFields.push(...this.selectedFields.splice(index, 1));
-  
+
   }
 
 }

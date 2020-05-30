@@ -1,4 +1,4 @@
-<div class="table-container mt-4">
+<div class="table-container mt-3">
 <div class="float-right mt-4  mr-2">
   <button mat-raised-button color="primary" class="mr-1" routerLink="/addbook">New Book</button>
   <button mat-raised-button color="primary" class="mr-1" (click)="openCategoryModal()">Change Category</button>
@@ -6,20 +6,18 @@
 </div>
 <div class="mat-elevation-z8 mb-3">
   <mat-form-field>
-    <mat-label>Find Categor or Author</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+    <mat-label class="ml-2">Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
   </mat-form-field>
-  <!--TABLE-->
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " matSort>
-
-    <!-- Position Column -->
-
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
           [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
         </mat-checkbox>
       </th>
+
       <td mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
           [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)" >
@@ -60,8 +58,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
       <td mat-cell *matCellDef="let book" class="example-button-row">
-        <button mat-raised-button color="primary" class="mr-1" routerLink="/editbook/{{book.id}}">Edit</button>
-        <button mat-raised-button color="warn" (click)="deleteRowData(book)">Delete</button>
+        <button mat-icon-button color="primary" routerLink="/editbook/{{book.id}}"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deleteRowData(book)"><mat-icon>delete</mat-icon></button>
 
       </td>
     </ng-container>
