@@ -6,13 +6,15 @@ import { Report } from '../models/report';
 })
 export class ReportService {
 
-  availableFields: string[] = ["category", "title", "description", "author", "date"];
+  availableFields: string[] = [];
   selectedFields: string[] = [];
-  el: any;
+
   idCounter;
   reports: Report[] = [];
 
-  constructor() { }
+  constructor() { 
+    this.getAllReports();
+  }
 
   getAllReports(): Report[] {
     if (localStorage.getItem('reports') === null) {
@@ -36,7 +38,10 @@ export class ReportService {
   reportEdit(report: Report) {
     this.reports = JSON.parse(localStorage.getItem('reports'));
     this.reports.map((val, index) => {
-      if (val.reportId == report.reportId) { this.reports[index] = report; }
+      if (val.reportId == report.reportId) {
+         this.reports[index] = report;
+         this.availableFields=this.reports[index].availableFields;
+       }
     });
     localStorage.setItem('reports', JSON.stringify(this.reports));
 
@@ -55,15 +60,15 @@ export class ReportService {
     this.idCounter = localStorage.getItem('counter-reports') || 1;
     report.reportId = this.idCounter++;
     localStorage.setItem('counter-reports', JSON.stringify(this.idCounter));
-    let bookData = [];
+    let reportData = [];
     if (localStorage.getItem('reports') === null) {
-      bookData = [];
-      bookData.push(report);
-      localStorage.setItem('reports', JSON.stringify(bookData));
+      reportData = [];
+      reportData.push(report);
+      localStorage.setItem('reports', JSON.stringify(reportData));
     } else {
-      bookData = JSON.parse(localStorage.getItem('reports'));
-      bookData.push(report);
-      localStorage.setItem('reports', JSON.stringify(bookData));
+      reportData = JSON.parse(localStorage.getItem('reports'));
+      reportData.push(report);
+      localStorage.setItem('reports', JSON.stringify(reportData));
     }
   }
 

@@ -25,12 +25,19 @@ export class EditBookComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(param => {
       if (param) {
+        
         this.book = this.bookService.getBook(param.id);
+        
         this.editForm();
       }
     });
+
+
+    
     
   }
+
+  
 
   editForm(){
     this.createEditForm = this.fb.group({
@@ -56,11 +63,11 @@ export class EditBookComponent implements OnInit {
   }
 
 
-  onSubmit(){
+  onSubmit(value){
 
     if(this.createEditForm.valid){
      
-      this.bookService.bookEdit(this.createEditForm.value);
+      this.bookService.bookEdit(value);
 
       this.router.navigateByUrl("/");
    }

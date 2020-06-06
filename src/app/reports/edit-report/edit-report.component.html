@@ -11,6 +11,11 @@
           <mat-card-content align="center">
             <div class="form-group">
               <mat-form-field class="example-full-width">
+                <input matInput formControlName="reportId" required>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
                 <input matInput placeholder="Name" formControlName="reportName" required>
               </mat-form-field>
             </div>
@@ -37,5 +42,5 @@
       </form>
     </div>
   </div>
-  <app-table-selected-fields *ngIf="editReportForm.get('reportType').value === 'table'"></app-table-selected-fields>
+  <app-table-selected-fields [availableFields]="availableFields" [selectedFields]="selectedFields"  *ngIf="editReportForm.get('reportType').value === 'table'"></app-table-selected-fields>
 </div>

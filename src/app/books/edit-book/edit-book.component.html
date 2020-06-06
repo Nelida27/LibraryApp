@@ -3,7 +3,7 @@
   <div class="row ">
 
     <div class="col-md-6  form-div">
-      <form class="example-form" [formGroup]="createEditForm" novalidate (ngSubmit)="onSubmit()">
+      <form class="example-form" [formGroup]="createEditForm"  (ngSubmit)="onSubmit(createEditForm.value)">
         <mat-card>
           <mat-card-header class="ml-2">
             <mat-card-title>
@@ -11,6 +11,7 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content align="center">
+
             <div class="form-group">
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Title" formControlName="title" required>
@@ -18,19 +19,19 @@
 
             </div>
 
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <textarea matInput placeholder="Description" formControlName="description" required></textarea>
               </mat-form-field>
             </div>
 
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Author" formControlName="author" required>
               </mat-form-field>
 
             </div>
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <mat-label>Category</mat-label>
                 <mat-select formControlName="category" required>
@@ -38,7 +39,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <mat-label>Date Published</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date" required>

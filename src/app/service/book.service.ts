@@ -14,7 +14,9 @@ export class BookService {
   idCounter;
   bookData: Book[];
 
-  constructor() { }
+  constructor() {
+    this.getAllBooks();
+   }
 
   getAllBooks(): Book[] {
 

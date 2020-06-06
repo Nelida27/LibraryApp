@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ReportService } from 'src/app/service/report.service';
 import { FilterPipe } from "../../shared/filter.pipe";
 
@@ -12,8 +12,12 @@ import { FilterPipe } from "../../shared/filter.pipe";
 export class TableSelectedFieldsComponent implements OnInit {
   filterAvailable: string = "";
   filterSelected: string = "";
-  availableFields: string[] = [];
-  selectedFields: string[] = [];
+@Input() availableFields: string[] = ["category", "title", "description", "author", "date"];
+@Input() selectedFields: string[] = [];
+
+
+  @Output() data: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() change: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   constructor(
     private reportService: ReportService,
@@ -22,27 +26,23 @@ export class TableSelectedFieldsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getAvailableFields();
-    this.getSelectedFields();
+    this.data.emit(this.availableFields);
+    this.change.emit(this.selectedFields);
 
   }
 
-  getAvailableFields() {
-    this.availableFields = this.reportService.getAvailableFields();
-    return this.availableFields;
-  }
 
-  getSelectedFields() {
-    this.selectedFields = this.reportService.getSelectedFields();
-    return this.selectedFields;
-  }
+
 
   onAddFields(fieldA) {
-    this.reportService.onAddClick(fieldA);
+    let index = this.availableFields.indexOf(fieldA);
+    this.selectedFields.push(...this.availableFields.splice(index, 1));
+
   }
 
   onRemoveFields(fieldS) {
-    this.reportService.onRemoveClick(fieldS);
+    let index = this.selectedFields.indexOf(fieldS);
+    this.availableFields.push(...this.selectedFields.splice(index, 1));
   }
 
 }

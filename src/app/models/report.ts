@@ -3,5 +3,8 @@ export interface Report {
     reportName: string;
     reportDesc: string;
     reportType:string;
+    availableFields:Array<string>;
+    selectedFields:Array<string>;
+
   
   }

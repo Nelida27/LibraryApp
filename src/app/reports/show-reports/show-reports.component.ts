@@ -36,6 +36,7 @@ export class ShowReportsComponent implements OnInit {
   }
 
   getReports(): Report[] {
+   console.log(this.reportService.getAllReports());
     return this.reportService.getAllReports();
   }
 
