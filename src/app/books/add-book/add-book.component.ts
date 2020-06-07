@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl,FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { BookService } from '../../service/book.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,8 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-book.component.scss']
 })
 export class AddBookComponent implements OnInit {
- 
-  addBookForm : FormGroup;
+
+  addBookForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -21,41 +21,41 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit() {
     this.addBookForm = this.fb.group({
-      id:[''],
-      title:['',Validators.required],
-      description:['',Validators.required],
-      author:['',Validators.required],
-      category:['',Validators.required],
-      date:['',Validators.required],
+      id: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      author: ['', Validators.required],
+      category: ['', Validators.required],
+      date: ['', Validators.required],
     });
   }
- 
 
-  resetFields(){
-    
+
+  resetFields() {
+
     this.addBookForm = this.fb.group({
-      id:[''],
-      title:['',Validators.required],
-      description:['',Validators.required],
-      author:['',Validators.required],
-      category:['',Validators.required],
-      date:['',Validators.required],
+      id: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      author: ['', Validators.required],
+      category: ['', Validators.required],
+      date: ['', Validators.required],
     });
   }
- 
 
 
-  onSubmit(){
 
-    if(this.addBookForm.valid){
+  onSubmit() {
+
+    if (this.addBookForm.valid) {
       this.bookService.addBook(this.addBookForm.value);
       this.resetFields();
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl('/');
     }
-      
+
 
   }
-  getCategoryList(){
+  getCategoryList() {
     return this.bookService.getCategory();
   }
 }

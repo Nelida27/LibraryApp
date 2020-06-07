@@ -8,7 +8,7 @@ import { Book } from '../models/book';
 })
 export class BookService {
 
-  bookCounter:number=0;
+  bookCounter: number = 0;
   bookNr;
   categoryList: string[] = ['Classic', 'Drama', 'Fairy Tale', 'Fable', 'Math', 'Fantasy', 'Biography'];
   idCounter;
@@ -70,10 +70,10 @@ export class BookService {
   deleteRow(book: Book) {
 
     JSON.parse(localStorage.getItem('books'));
-    let index = this.bookData.indexOf(book);
+    const index = this.bookData.indexOf(book);
     this.bookData.splice(index, 1);
     localStorage.setItem('books', JSON.stringify(this.bookData));
- 
+
   }
 
   getCategory() {

@@ -80,7 +80,7 @@ export class TableReportComponent implements OnInit {
   exportToPdf() {
     const doc = new jsPDF();
     const specialElementHandlers = {
-      '#editor' (element, renderer) {
+      '#editor'(element, renderer) {
         return true;
       }
     };
@@ -122,6 +122,3 @@ export class TableReportComponent implements OnInit {
   }
 
 }
-
-
-

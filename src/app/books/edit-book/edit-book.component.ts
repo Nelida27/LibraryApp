@@ -14,7 +14,7 @@ import { Book } from 'src/app/models/book';
 export class EditBookComponent implements OnInit {
   book: Book;
   createEditForm: FormGroup;
- 
+
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
@@ -25,56 +25,50 @@ export class EditBookComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(param => {
       if (param) {
-        
+
         this.book = this.bookService.getBook(param.id);
-        
+
         this.editForm();
       }
     });
 
-
-    
-    
   }
 
-  
 
-  editForm(){
+
+  editForm() {
     this.createEditForm = this.fb.group({
-      id:[this.book.id],
-      title:[this.book.title,Validators.required],
-      description:[this.book.description,Validators.required],
-      author:[this.book.author,Validators.required],
-      category:[this.book.category,Validators.required],
-      date:[this.book.date,Validators.required],
+      id: [this.book.id],
+      title: [this.book.title, Validators.required],
+      description: [this.book.description, Validators.required],
+      author: [this.book.author, Validators.required],
+      category: [this.book.category, Validators.required],
+      date: [this.book.date, Validators.required],
     });
 
   }
 
-  resetFields(){
+  resetFields() {
     this.createEditForm = this.fb.group({
-      id:[this.book.id],
-      title:[this.book.title,Validators.required],
-      description:[this.book.description,Validators.required],
-      author:[this.book.author,Validators.required],
-      category:[this.book.category,Validators.required],
-      date:[this.book.date,Validators.required]
+      id: [this.book.id],
+      title: [this.book.title, Validators.required],
+      description: [this.book.description, Validators.required],
+      author: [this.book.author, Validators.required],
+      category: [this.book.category, Validators.required],
+      date: [this.book.date, Validators.required]
     });
   }
 
 
-  onSubmit(value){
+  onSubmit(value) {
 
-    if(this.createEditForm.valid){
-     
+    if (this.createEditForm.valid) {
       this.bookService.bookEdit(value);
-
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl('/');
    }
-  
-
   }
-  getCategoryList(){
+
+  getCategoryList() {
     return this.bookService.getCategory();
   }
 
