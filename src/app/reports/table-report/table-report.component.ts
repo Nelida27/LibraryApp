@@ -8,8 +8,9 @@ import * as XLSX from 'xlsx';
 import { ReportService } from 'src/app/service/report.service';
 import { BookService } from 'src/app/service/book.service';
 import { Report } from 'src/app/models/report';
-import { FormGroup, Validators, FormControl,FormBuilder } from '@angular/forms';
-import * as jsPDF from 'jspdf'
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import * as jsPDF from 'jspdf';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -20,12 +21,14 @@ import * as jsPDF from 'jspdf'
 })
 
 export class TableReportComponent implements OnInit {
-
+  isEdit = false;
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource(this.getBooks());
   selection = new SelectionModel<any>(true, []);
-  report:Report;
-  editReportForm:FormGroup;
+  report: Report;
+  editReportForm: FormGroup;
+
+
 
   @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
   @ViewChild('TABLE', { static: true }) table: ElementRef;
@@ -36,7 +39,9 @@ export class TableReportComponent implements OnInit {
     private reportService: ReportService,
     private bookService: BookService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+
     ) {}
 
   ngOnInit() {
@@ -44,42 +49,29 @@ export class TableReportComponent implements OnInit {
     this.route.params.subscribe(param => {
       if (param) {
         this.report = this.reportService.getReport(param.reportId);
+        this.displayedColumns = this.report.fields ;
         this.editForm();
+
       }
     });
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getHeaders();
     this.getBooks();
   }
 
-  editForm(){
+
+  editForm() {
     this.editReportForm = this.fb.group({
-      reportId:[this.report.reportId],
-      reportName:[this.report.reportName,Validators.required],
-      reportDesc:[this.report.reportDesc,Validators.required],
-     
+      reportId: [this.report.reportId],
+      reportName: [this.report.reportName, Validators.required],
+      reportDesc: [this.report.reportDesc, Validators.required],
+      reportType: [this.report.reportType, Validators.required],
+      fields: [this.report.fields]
+
     });
 
   }
-
-
-  getHeaders() {
-    if (this.reportService.getSelectedFields().length == 0) {
-      this.reportService.getAvailableFields().forEach(item => {
-        this.displayedColumns.push(item);
-      });
-    }
-    else {
-      this.reportService.getSelectedFields().forEach(item => {
-        this.displayedColumns.push(item);
-      });
-    }
-
-    return this.displayedColumns;
-  }
-
 
   getBooks() {
     return this.bookService.getAllBooks();
@@ -88,14 +80,14 @@ export class TableReportComponent implements OnInit {
   exportToPdf() {
     const doc = new jsPDF();
     const specialElementHandlers = {
-      '#editor': function (element, renderer) {
+      '#editor' (element, renderer) {
         return true;
       }
     };
     const pdfTable = this.pdfTable.nativeElement;
     doc.fromHTML(pdfTable.innerHTML, 15, 15, {
       width: 190,
-      'elementHandlers': specialElementHandlers
+      elementHandlers: specialElementHandlers
     });
     doc.save('tableToPdf.pdf');
   }
@@ -109,6 +101,26 @@ export class TableReportComponent implements OnInit {
     XLSX.writeFile(wb, 'Report.xlsx');
 
   }
+  onReset() {
+      this.editReportForm = this.fb.group({
+        reportId: [this.report.reportId],
+        reportName: [this.report.reportName, Validators.required],
+        reportDesc: [this.report.reportDesc, Validators.required],
+        reportType: [this.report.reportType, Validators.required],
+        fields: [this.report.fields]
+
+      });
+
+  }
+
+  onSubmit() {
+
+    if (this.editReportForm.valid) {
+      this.reportService.reportEdit(this.editReportForm.value);
+    }
+
+  }
+
 }
 
 

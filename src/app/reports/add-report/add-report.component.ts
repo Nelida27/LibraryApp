@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitte
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { ReportService } from '../../service/report.service';
 import { Router } from '@angular/router';
-import { TableSelectedFieldsComponent } from "../table-selected-fields/table-selected-fields.component";
 import { ChangeDetectorRef } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { Report } from 'src/app/models/report';
+
 
 @Component({
   selector: 'app-add-report',
@@ -12,55 +13,38 @@ import { FormArray } from '@angular/forms';
   styleUrls: ['./add-report.component.scss']
 })
 export class AddReportComponent implements OnInit {
+
+  report: Report = {
+    reportId: 0,
+    reportName: '',
+    reportDesc: '',
+    reportType: '',
+    fields: []
+  };
+
   addReportForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private reportService: ReportService,
-    private router: Router,
-    private cdref: ChangeDetectorRef
+    private router: Router
+
   ) { }
 
   ngOnInit() {
-
-
     this.addReportForm = this.fb.group({
-      reportId: [''],
+
       reportName: ['', Validators.required],
       reportDesc: ['', Validators.required],
-      reportType: ['', Validators.required],
-      availableFields: this.fb.array([]),
-      selectedFields: this.fb.array([])
+      reportType: ['', Validators.required]
+
+
     });
 
 
   }
 
-
-  ngAfterContentChecked() {
-
-    this.cdref.detectChanges();
-
-  }
-
-  get availableFields(): FormArray {
-    return this.addReportForm.get('availableFields') as FormArray;
-  }
-  get selectedFields(): FormArray {
-    return this.addReportForm.get('selectedFields') as FormArray;
-  }
-
-  onVoted(event) {
-    this.availableFields.push(new FormControl(event));
-  }
-  onSelect(event) {
-
-    this.selectedFields.push(new FormControl(event));
-   
-  }
-
   resetFields() {
     this.addReportForm = this.fb.group({
-      reportId: [''],
       reportName: ['', Validators.required],
       reportDesc: ['', Validators.required],
       reportType: ['', Validators.required]
@@ -69,13 +53,15 @@ export class AddReportComponent implements OnInit {
   }
 
   onSubmit() {
+    this.report.reportName = this.addReportForm.value.reportName;
+    this.report.reportDesc = this.addReportForm.value.reportDesc;
+    this.report.reportType = this.addReportForm.value.reportType;
 
     if (this.addReportForm.valid) {
-      this.reportService.addReport(this.addReportForm.value);
+      this.reportService.addReport(this.report);
       this.resetFields();
-      this.router.navigateByUrl("/reports");
+      this.router.navigateByUrl('/reports');
     }
-
 
   }
 

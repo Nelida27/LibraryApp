@@ -1,10 +1,10 @@
-export interface Report {
+export class Report {
     reportId:number;
     reportName: string;
     reportDesc: string;
     reportType:string;
-    availableFields:Array<string>;
-    selectedFields:Array<string>;
+    fields:Array<string>;
 
-  
+
+
   }

@@ -6,8 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { Book } from '../../models/book';
 import { BookService } from '../../service/book.service';
 import { ConfirmationDialogModel, ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
+// tslint:disable-next-line: max-line-length
 import { ChangeCategoryDialogModel, ChangeCategoryModalComponent } from '../../shared/change-category-modal/change-category-modal.component';
-import { MatDialog,MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -18,36 +19,37 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
- 
+
   displayedColumns: string[] = ['select', 'id', 'title', 'description', 'author', 'category', 'actions'];
   dataSource = new MatTableDataSource(this.getBooks());
   selection = new SelectionModel<Book>(true, []);
-  result: string = '';
+  result = '';
 
-  
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private bookService: BookService,public dialog: MatDialog,private router: Router) { }
+  constructor(private bookService: BookService, public dialog: MatDialog, private router: Router) { }
   currentRouter = this.router.url;
 
   ngOnInit() {
 
+    // tslint:disable-next-line: only-arrow-functions
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
-      return data.title.toLowerCase().includes(filter) 
+      return data.title.toLowerCase().includes(filter)
       || data.author.toLowerCase().includes(filter) || data.category.toLowerCase().includes(filter);
     };
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    
+
   }
 
-  getBooks(){
+  getBooks() {
 
     return this.bookService.getAllBooks();
-    
+
   }
 
   applyFilter(event: Event) {
@@ -78,7 +80,7 @@ export class BookListComponent implements OnInit {
   }
 
 
-  deleteRowData(book:Book) {
+  deleteRowData(book: Book) {
     this.bookService.deleteRow(book);
     this.reloadComponent();
   }
@@ -96,9 +98,9 @@ export class BookListComponent implements OnInit {
 
   }
 
-  updateCategory(value){
+  updateCategory(value) {
     this.selection.selected.forEach(item => {
-      let index: number = this.dataSource.data.findIndex(d => d === item);
+      const index: number = this.dataSource.data.findIndex(d => d === item);
 
       this.dataSource.data[index].category = value;
 
@@ -112,47 +114,47 @@ export class BookListComponent implements OnInit {
   confirmDialog(): void {
     const message = `Are you sure you want to delete?`;
 
-    const dialogData = new ConfirmationDialogModel("Confirm Delete", message);
+    const dialogData = new ConfirmationDialogModel('Confirm Delete', message);
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      maxWidth: "400px",
+      maxWidth: '400px',
       data: dialogData
     });
 
-    
+
     dialogRef.afterClosed().subscribe(dialogResult => {
 
-      if(dialogResult){
+      if (dialogResult) {
         this.deleteSelected();
       }
     });
   }
 
-openCategoryModal(){
+openCategoryModal() {
 
-  const dialogData = new ChangeCategoryDialogModel("");
+  const dialogData = new ChangeCategoryDialogModel('');
 
   const dialogRef = this.dialog.open(ChangeCategoryModalComponent, {
-    maxWidth: "400px",
+    maxWidth: '400px',
     data: dialogData
-    
+
   });
 
- console.log(dialogRef);
+  console.log(dialogRef);
 
   dialogRef.afterClosed().subscribe(
-      val =>{
-        if(val){
+      val => {
+        if (val) {
           this.updateCategory(val.category);
         }
-        
+
       }
-     
+
   );
-  
+
 }
 
-    
+
 }
 
 

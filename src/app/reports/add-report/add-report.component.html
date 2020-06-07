@@ -15,13 +15,13 @@
           <mat-card-content align="center">
         <div class="form-group">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" formControlName="reportName" required>
+            <input matInput placeholder="Name" formControlName="reportName"   required>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Description" formControlName="reportDesc" required>
+            <input matInput placeholder="Description" formControlName="reportDesc"  required>
           </mat-form-field>
 
         </div>
@@ -29,28 +29,28 @@
         <div>
           <mat-form-field class="example-full-width">
             <mat-label>Choose an option</mat-label>
-            <mat-select formControlName="reportType" required>
+            <mat-select formControlName="reportType"  required>
               <mat-option value="table">Table</mat-option>
               <mat-option value="chart">Chart</mat-option>
             </mat-select>
           </mat-form-field>
 
         </div>
-        
+
       </mat-card-content>
       <mat-card-actions align="center" class="mb-2">
-       
+
         <button mat-flat-button class="mr-5" type="submit" color="primary" >Save</button>
         <button mat-flat-button type="button" color="warn" (click)="resetFields()">Reset</button>
       </mat-card-actions>
     </mat-card>
-        
+
       </form>
     </div>
 
   </div>
-  <app-table-selected-fields  
-  (data)="onVoted($event)" (change)="onSelect($event)" *ngIf="addReportForm.get('reportType').value === 'table'">
-       
+  <app-table-selected-fields  [report]="report"
+   *ngIf="addReportForm.get('reportType').value === 'table'">
+
   </app-table-selected-fields>
 </div>

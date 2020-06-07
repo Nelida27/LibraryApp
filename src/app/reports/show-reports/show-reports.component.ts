@@ -36,8 +36,8 @@ export class ShowReportsComponent implements OnInit {
   }
 
   getReports(): Report[] {
-   console.log(this.reportService.getAllReports());
-    return this.reportService.getAllReports();
+
+   return this.reportService.getAllReports();
   }
 
   applyFilter(event: Event) {
@@ -92,10 +92,10 @@ export class ShowReportsComponent implements OnInit {
 
     const message = `Are you sure you want to delete?`;
 
-    const dialogData = new ConfirmationDialogModel("Confirm Delete", message);
+    const dialogData = new ConfirmationDialogModel('Confirm Delete', message);
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      maxWidth: "400px",
+      maxWidth: '400px',
       data: dialogData
     });
 

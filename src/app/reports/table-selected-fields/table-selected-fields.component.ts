@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ReportService } from 'src/app/service/report.service';
-import { FilterPipe } from "../../shared/filter.pipe";
+import { FilterPipe } from '../../shared/filter.pipe';
+import { Report } from 'src/app/models/report';
 
 
 @Component({
@@ -10,14 +11,12 @@ import { FilterPipe } from "../../shared/filter.pipe";
 })
 
 export class TableSelectedFieldsComponent implements OnInit {
-  filterAvailable: string = "";
-  filterSelected: string = "";
-@Input() availableFields: string[] = ["category", "title", "description", "author", "date"];
-@Input() selectedFields: string[] = [];
 
+  @Input() report: Report;
+  filterAvailable: string = '';
+  filterSelected: string = '';
+  availableFields: string[] = ['category', 'title', 'description', 'author', 'date'];
 
-  @Output() data: EventEmitter<string[]> = new EventEmitter<string[]>();
-  @Output() change: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   constructor(
     private reportService: ReportService,
@@ -26,23 +25,19 @@ export class TableSelectedFieldsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.data.emit(this.availableFields);
-    this.change.emit(this.selectedFields);
+    this.report.fields.forEach(x => {
+      this.availableFields = this.availableFields.filter(e => e !== x);
+    });
 
   }
-
-
-
 
   onAddFields(fieldA) {
-    let index = this.availableFields.indexOf(fieldA);
-    this.selectedFields.push(...this.availableFields.splice(index, 1));
-
+    const index = this.availableFields.indexOf(fieldA);
+    this.report.fields.push(...this.availableFields.splice(index, 1));
   }
-
   onRemoveFields(fieldS) {
-    let index = this.selectedFields.indexOf(fieldS);
-    this.availableFields.push(...this.selectedFields.splice(index, 1));
+    const index = this.report.fields.indexOf(fieldS);
+    this.availableFields.push(...this.report.fields.splice(index, 1));
   }
 
 }

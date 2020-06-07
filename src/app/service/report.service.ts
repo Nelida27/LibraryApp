@@ -12,7 +12,7 @@ export class ReportService {
   idCounter;
   reports: Report[] = [];
 
-  constructor() { 
+  constructor() {
     this.getAllReports();
   }
 
@@ -29,8 +29,9 @@ export class ReportService {
 
     let report: Report;
     this.reports.map(val => {
-      if (val.reportId == id) report = val;
+      if  (val.reportId == id) report = val;
     });
+
     return report;
 
   }
@@ -40,7 +41,7 @@ export class ReportService {
     this.reports.map((val, index) => {
       if (val.reportId == report.reportId) {
          this.reports[index] = report;
-         this.availableFields=this.reports[index].availableFields;
+
        }
     });
     localStorage.setItem('reports', JSON.stringify(this.reports));
@@ -49,7 +50,7 @@ export class ReportService {
 
   deleteRow(report: Report) {
     JSON.parse(localStorage.getItem('reports'));
-    let index = this.reports.indexOf(report);
+    const index = this.reports.indexOf(report);
     this.reports.splice(index, 1);
     localStorage.setItem('reports', JSON.stringify(this.reports));
 
@@ -72,25 +73,6 @@ export class ReportService {
     }
   }
 
-  getAvailableFields() {
-    return this.availableFields;
-  }
 
-  getSelectedFields() {
-    return this.selectedFields;
-  }
-
-  onAddClick(fields) {
-
-    let index = this.availableFields.indexOf(fields);
-    this.selectedFields.push(...this.availableFields.splice(index, 1));
-
-  }
-  onRemoveClick(field) {
-
-    let index = this.selectedFields.indexOf(field);
-    this.availableFields.push(...this.selectedFields.splice(index, 1));
-
-  }
 
 }
