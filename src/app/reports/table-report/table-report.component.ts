@@ -88,20 +88,20 @@ export class TableReportComponent implements OnInit {
   }
 
   downloadToPdf() {
-   const options = {
-     filename: 'Table_Report.pdf',
-     html2canvas: {},
-     jsPDF : {orientation: 'landscape'}
-   };
-   const content =  document.getElementById('pdfTable');
+    const options = {
+      filename: 'Table_Report.pdf',
+      html2canvas: {},
+      jsPDF: { orientation: 'landscape' }
+    };
+    const content = document.getElementById('pdfTable');
 
-   html2pdf()
-   .from(content)
-   .set(options)
-   .save();
+    html2pdf()
+      .from(content)
+      .set(options)
+      .save();
   }
 
-  print(){
+  print() {
     window.print();
   }
 

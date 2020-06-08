@@ -31,16 +31,18 @@ export class AddReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.addReportForm = this.fb.group({
 
+    this.addReportForm = this.fb.group({
       reportName: ['', Validators.required],
       reportDesc: ['', Validators.required],
       reportType: ['', Validators.required]
 
-
     });
 
+  }
 
+  checkError = (controlName: string, errorName: string) => {
+    return this.addReportForm.controls[controlName].hasError(errorName);
   }
 
   resetFields() {

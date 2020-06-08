@@ -12,23 +12,31 @@
 
             <div class="form-group">
               <mat-form-field class="example-full-width">
+                <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="reportName" required>
+                <mat-error *ngIf="checkError('reportName', 'required')">Name is required</mat-error>
               </mat-form-field>
             </div>
-            <div>
+
+            <div class="form-group">
               <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
                 <input matInput placeholder="Description" formControlName="reportDesc" required>
+                <mat-error *ngIf="checkError('reportDesc', 'required')">Description is required</mat-error>
               </mat-form-field>
             </div>
-            <div>
+
+            <div class="form-group">
               <mat-form-field class="example-full-width">
-                <mat-label>Choose an option</mat-label>
+                <mat-label>Report Type</mat-label>
                 <mat-select formControlName="reportType" required>
                   <mat-option value="table">Table</mat-option>
-                  <mat-option value="chart"  >Chart</mat-option>
+                  <mat-option value="chart">Chart</mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkError('reportType', 'required')">Report Type is required</mat-error>
               </mat-form-field>
             </div>
+
           </mat-card-content>
           <mat-card-actions align="center" class="mb-2">
             <button mat-flat-button class="mr-5" type="submit" color="primary">Save</button>
@@ -38,5 +46,6 @@
       </form>
     </div>
   </div>
-  <app-table-selected-fields  [report]="report" *ngIf="editReportForm.get('reportType').value === 'table'"></app-table-selected-fields>
+  <app-table-selected-fields [report]="report" *ngIf="editReportForm.get('reportType').value === 'table'">
+  </app-table-selected-fields>
 </div>

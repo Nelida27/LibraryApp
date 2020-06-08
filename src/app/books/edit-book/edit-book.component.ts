@@ -48,6 +48,10 @@ export class EditBookComponent implements OnInit {
 
   }
 
+  checkError = (controlName: string, errorName: string) => {
+    return this.createEditForm.controls[controlName].hasError(errorName);
+  }
+
   resetFields() {
     this.createEditForm = this.fb.group({
       id: [this.book.id],
@@ -65,7 +69,7 @@ export class EditBookComponent implements OnInit {
     if (this.createEditForm.valid) {
       this.bookService.bookEdit(this.createEditForm.value);
       this.router.navigateByUrl('/');
-   }
+    }
   }
 
   getCategoryList() {

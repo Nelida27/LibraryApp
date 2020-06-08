@@ -45,6 +45,10 @@ export class EditReportComponent implements OnInit {
 
   }
 
+  checkError = (controlName: string, errorName: string) => {
+    return this.editReportForm.controls[controlName].hasError(errorName);
+  }
+
   resetFields() {
     this.editReportForm = this.fb.group({
       reportId: [this.report.reportId],

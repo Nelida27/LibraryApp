@@ -1,4 +1,3 @@
-
 <div class="container mt-5">
 
   <div class="row">
@@ -7,50 +6,54 @@
       <form class="example-form" [formGroup]="addReportForm" (ngSubmit)="onSubmit()">
         <mat-card class="mb-5">
           <mat-card-header class="ml-2">
-
             <mat-card-title>
               Add Report
             </mat-card-title>
           </mat-card-header>
           <mat-card-content align="center">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" formControlName="reportName"   required>
-          </mat-form-field>
-        </div>
 
-        <div>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Description" formControlName="reportDesc"  required>
-          </mat-form-field>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" formControlName="reportName" required>
+                <mat-error *ngIf="checkError('reportName', 'required')">Name is required</mat-error>
+              </mat-form-field>
+            </div>
 
-        </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" formControlName="reportDesc" required>
+                <mat-error *ngIf="checkError('reportDesc', 'required')">Description is required</mat-error>
+              </mat-form-field>
 
-        <div>
-          <mat-form-field class="example-full-width">
-            <mat-label>Choose an option</mat-label>
-            <mat-select formControlName="reportType"  required>
-              <mat-option value="table">Table</mat-option>
-              <mat-option value="chart">Chart</mat-option>
-            </mat-select>
-          </mat-form-field>
+            </div>
 
-        </div>
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <mat-label>Report Type</mat-label>
+                <mat-select formControlName="reportType" required>
+                  <mat-option value="table">Table</mat-option>
+                  <mat-option value="chart">Chart</mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkError('reportType', 'required')">Report Type is required</mat-error>
+              </mat-form-field>
 
-      </mat-card-content>
-      <mat-card-actions align="center" class="mb-2">
+            </div>
 
-        <button mat-flat-button class="mr-5" type="submit" color="primary" >Save</button>
-        <button mat-flat-button type="button" color="warn" (click)="resetFields()">Reset</button>
-      </mat-card-actions>
-    </mat-card>
+          </mat-card-content>
+          <mat-card-actions align="center" class="mb-2">
+
+            <button mat-flat-button class="mr-5" type="submit" color="primary">Save</button>
+            <button mat-flat-button type="button" color="warn" (click)="resetFields()">Reset</button>
+          </mat-card-actions>
+        </mat-card>
 
       </form>
     </div>
 
   </div>
-  <app-table-selected-fields  [report]="report"
-   *ngIf="addReportForm.get('reportType').value === 'table'">
+  <app-table-selected-fields [report]="report" *ngIf="addReportForm.get('reportType').value === 'table'">
 
   </app-table-selected-fields>
 </div>

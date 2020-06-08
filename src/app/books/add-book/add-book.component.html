@@ -2,8 +2,8 @@
 
   <div class="row">
 
-    <div class="col-md-6  form-div">
-      <form class="example-form" [formGroup]="addBookForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="col-md-6 form-div">
+      <form class="example-form mt-4" [formGroup]="addBookForm" novalidate (ngSubmit)="onSubmit()">
         <mat-card>
           <mat-card-header class="ml-2">
             <mat-card-title>
@@ -14,40 +14,48 @@
           <mat-card-content align="center">
             <div class="form-group">
               <mat-form-field class="example-full-width">
+                <mat-label>Title</mat-label>
                 <input matInput placeholder="Title" formControlName="title" required>
+                <mat-error *ngIf="checkError('title', 'required')">Title is required</mat-error>
               </mat-form-field>
             </div>
 
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
                 <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+                <mat-error *ngIf="checkError('description', 'required')">Description is required</mat-error>
               </mat-form-field>
             </div>
 
-            <div>
+            <div class="form-group">
               <mat-form-field class="example-full-width">
+                <mat-label>Author</mat-label>
                 <input matInput placeholder="Author" formControlName="author" required>
+                <mat-error *ngIf="checkError('author', 'required')">Author is required</mat-error>
               </mat-form-field>
             </div>
-            <div>
 
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <mat-label>Category</mat-label>
                 <mat-select formControlName="category" required>
-                  <mat-option *ngFor="let category of getCategoryList();" [value]="category" >{{category}}</mat-option>
+                  <mat-option *ngFor="let category of getCategoryList();" [value]="category">{{category}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkError('category', 'required')">Category is required</mat-error>
               </mat-form-field>
-
             </div>
-            <div>
+
+            <div class="form-group">
               <mat-form-field class="example-full-width">
                 <mat-label>Date Published</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date" required>
+                <mat-error *ngIf="checkError('date', 'required')">Date Published is required</mat-error>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-
             </div>
+
           </mat-card-content>
           <mat-card-actions align="center" class="mb-2">
             <button mat-flat-button class="mr-5" type="submit" color="primary">Save</button>

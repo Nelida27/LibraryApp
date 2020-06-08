@@ -30,6 +30,9 @@ export class AddBookComponent implements OnInit {
     });
   }
 
+  checkError = (controlName: string, errorName: string) => {
+    return this.addBookForm.controls[controlName].hasError(errorName);
+  }
 
   resetFields() {
 
