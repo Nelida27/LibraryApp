@@ -63,7 +63,7 @@ export class EditBookComponent implements OnInit {
   onSubmit(value) {
 
     if (this.createEditForm.valid) {
-      this.bookService.bookEdit(value);
+      this.bookService.bookEdit(this.createEditForm.value);
       this.router.navigateByUrl('/');
    }
   }
