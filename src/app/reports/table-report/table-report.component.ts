@@ -10,7 +10,7 @@ import { BookService } from 'src/app/service/book.service';
 import { Report } from 'src/app/models/report';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import * as jsPDF from 'jspdf';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -22,6 +22,7 @@ import {map} from 'rxjs/operators';
 
 export class TableReportComponent implements OnInit {
   isEdit = false;
+  showTable = true;
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource(this.getBooks());
   selection = new SelectionModel<any>(true, []);
@@ -42,16 +43,18 @@ export class TableReportComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
 
-    ) {}
+  ) { }
 
   ngOnInit() {
 
     this.route.params.subscribe(param => {
       if (param) {
         this.report = this.reportService.getReport(param.reportId);
-        this.displayedColumns = this.report.fields ;
+        this.displayedColumns = this.report.fields;
+        if (this.displayedColumns.length == 0) {
+          this.showTable = false;
+        }
         this.editForm();
-
       }
     });
 
@@ -102,14 +105,14 @@ export class TableReportComponent implements OnInit {
 
   }
   onReset() {
-      this.editReportForm = this.fb.group({
-        reportId: [this.report.reportId],
-        reportName: [this.report.reportName, Validators.required],
-        reportDesc: [this.report.reportDesc, Validators.required],
-        reportType: [this.report.reportType, Validators.required],
-        fields: [this.report.fields]
+    this.editReportForm = this.fb.group({
+      reportId: [this.report.reportId],
+      reportName: [this.report.reportName, Validators.required],
+      reportDesc: [this.report.reportDesc, Validators.required],
+      reportType: [this.report.reportType, Validators.required],
+      fields: [this.report.fields]
 
-      });
+    });
 
   }
 
@@ -117,8 +120,8 @@ export class TableReportComponent implements OnInit {
 
     if (this.editReportForm.valid) {
       this.reportService.reportEdit(this.editReportForm.value);
-    }
 
+    }
   }
 
 }

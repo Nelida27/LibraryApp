@@ -25,19 +25,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  
+
     div:all {
       margin-left: 10px;
       flex: 1;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      
-  
-    
+
+
+
     }
-    
+
   }
 .mat-icon{
   color:#3f51b5 ;
+}
+
+.cancel{
+  color:#f44336;
 }

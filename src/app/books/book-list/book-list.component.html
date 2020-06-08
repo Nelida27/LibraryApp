@@ -10,7 +10,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
   </mat-form-field>
 
-  <table mat-table  [dataSource]="dataSource" class="mat-elevation-z8 " matSort>
+  <table mat-table  [dataSource]="dataSource"   class="mat-elevation-z8 " matSort>
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
@@ -65,10 +65,13 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"   [ngClass]="{ highlighted: selection.isSelected(row)}" ></tr>
+   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"   [ngClass]="{ highlighted: selection.isSelected(row)}" ></tr>
+
   </table>
+
   <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 </div>
 </div>
+
 
 
