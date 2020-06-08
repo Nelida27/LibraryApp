@@ -51,3 +51,10 @@
 .cancel{
   color:#f44336;
 }
+@media print
+{
+    .no-print
+    {
+        display: none !important;
+    }
+}

@@ -8,11 +8,12 @@
           <input matInput formControlName="reportName" [readonly]="!isEdit">
         </mat-form-field>
       </div>
-      <div class="mt-3" data-html2canvas-ignore="true">
+      <div class="mt-3 no-print" data-html2canvas-ignore="true">
         <mat-icon (click)="isEdit=true" [hidden]="isEdit">edit</mat-icon>
         <mat-icon (click)="onSubmit();isEdit=false" [hidden]="!isEdit">save</mat-icon>
         <mat-icon (click)="onReset()" class="cancel" [hidden]="!isEdit">cancel</mat-icon>
-        <mat-icon (click)="exportToPdf()">picture_as_pdf</mat-icon>
+        <mat-icon (click)="print()">print</mat-icon>
+        <mat-icon (click)="downloadToPdf()">picture_as_pdf</mat-icon>
         <mat-icon (click)="exportTOExcel()">import_export</mat-icon>
       </div>
     </div>
@@ -53,7 +54,7 @@
       <p class="ml-3 mt-3">No Data Found</p>
       </div>
 
-    <mat-paginator data-html2canvas-ignore="true" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+    <mat-paginator class="no-print" data-html2canvas-ignore="true" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 
   </div>
 </div>

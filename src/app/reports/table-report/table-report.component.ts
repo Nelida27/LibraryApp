@@ -87,9 +87,9 @@ export class TableReportComponent implements OnInit {
     return this.bookService.getAllBooks();
   }
 
-  exportToPdf() {
+  downloadToPdf() {
    const options = {
-     filename: 'test.pdf',
+     filename: 'Table_Report.pdf',
      html2canvas: {},
      jsPDF : {orientation: 'landscape'}
    };
@@ -99,6 +99,10 @@ export class TableReportComponent implements OnInit {
    .from(content)
    .set(options)
    .save();
+  }
+
+  print(){
+    window.print();
   }
 
 
