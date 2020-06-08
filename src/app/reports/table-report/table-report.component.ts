@@ -9,8 +9,8 @@ import { ReportService } from 'src/app/service/report.service';
 import { BookService } from 'src/app/service/book.service';
 import { Report } from 'src/app/models/report';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import * as jsPDF from 'jspdf';
-import { map } from 'rxjs/operators';
+import * as html2pdf from 'html2pdf.js';
+
 
 
 @Component({
@@ -31,7 +31,7 @@ export class TableReportComponent implements OnInit {
 
 
 
-  @ViewChild('pdfTable', { static: false }) pdfTable: ElementRef;
+
   @ViewChild('TABLE', { static: true }) table: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -51,7 +51,7 @@ export class TableReportComponent implements OnInit {
       if (param) {
         this.report = this.reportService.getReport(param.reportId);
         this.displayedColumns = this.report.fields;
-        if (this.displayedColumns.length == 0) {
+        if (this.displayedColumns.length === 0) {
           this.showTable = false;
         }
         this.editForm();
@@ -75,24 +75,30 @@ export class TableReportComponent implements OnInit {
     });
 
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   getBooks() {
     return this.bookService.getAllBooks();
   }
 
   exportToPdf() {
-    const doc = new jsPDF();
-    const specialElementHandlers = {
-      '#editor'(element, renderer) {
-        return true;
-      }
-    };
-    const pdfTable = this.pdfTable.nativeElement;
-    doc.fromHTML(pdfTable.innerHTML, 15, 15, {
-      width: 190,
-      elementHandlers: specialElementHandlers
-    });
-    doc.save('tableToPdf.pdf');
+   const options = {
+     filename: 'test.pdf',
+     html2canvas: {},
+     jsPDF : {orientation: 'landscape'}
+   };
+   const content =  document.getElementById('pdfTable');
+
+   html2pdf()
+   .from(content)
+   .set(options)
+   .save();
   }
 
 

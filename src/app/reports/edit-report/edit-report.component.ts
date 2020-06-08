@@ -4,6 +4,7 @@ import { ReportService } from '../../service/report.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Report } from 'src/app/models/report';
 
+
 @Component({
   selector: 'app-edit-report',
   templateUrl: './edit-report.component.html',
@@ -54,7 +55,13 @@ export class EditReportComponent implements OnInit {
     });
   }
 
+
+
   onSubmit() {
+
+    if (this.editReportForm.value.reportType === 'chart') {
+      this.editReportForm.value.fields = [];
+    }
 
     if (this.editReportForm.valid) {
       this.reportService.reportEdit(this.editReportForm.value);
