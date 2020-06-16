@@ -17,10 +17,10 @@ export class ChangeCategoryModalComponent implements OnInit {
     private fb: FormBuilder,
     private bookService: BookService,
     private dialogRef: MatDialogRef<ChangeCategoryModalComponent>,
-    
+
     @Inject(MAT_DIALOG_DATA) { category }: Book) {
     this.category = category;
-  
+
     this.modalForm = fb.group({
       category: [category, Validators.required],
     });

@@ -1,9 +1,9 @@
 export class Report {
-    reportId:number;
+    reportId: number;
     reportName: string;
     reportDesc: string;
-    reportType:string;
-    fields:Array<string>;
+    reportType: string;
+    fields: Array<string>;
 
 
 

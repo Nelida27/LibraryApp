@@ -19,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-
+ saveCategory: string;
   displayedColumns: string[] = ['select', 'id', 'title', 'description', 'author', 'category', 'actions'];
   dataSource = new MatTableDataSource(this.getBooks());
   selection = new SelectionModel<Book>(true, []);
@@ -97,17 +97,15 @@ export class BookListComponent implements OnInit {
     });
 
   }
+  updateRow(book:Book){
 
-  updateCategory(value) {
+    this.bookService.updateCategory(this.saveCategory,book);
+  }
+
+  updateCategory() {
     this.selection.selected.forEach(item => {
-      const index: number = this.dataSource.data.findIndex(d => d === item);
-
-      this.dataSource.data[index].category = value;
-
-      this.dataSource = new MatTableDataSource(this.dataSource.data);
-
+      this.updateRow(item);
     });
-    this.selection = new SelectionModel<Book>(true, []);
   }
 
 
@@ -140,12 +138,14 @@ openCategoryModal() {
 
   });
 
-  console.log(dialogRef);
+
 
   dialogRef.afterClosed().subscribe(
       val => {
         if (val) {
-          this.updateCategory(val.category);
+          this.saveCategory = val.category;
+          this.updateCategory();
+
         }
 
       }

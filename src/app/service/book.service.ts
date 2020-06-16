@@ -8,7 +8,7 @@ import { Book } from '../models/book';
 })
 export class BookService {
 
-  bookCounter: number = 0;
+  bookCounter = 0;
   bookNr;
   categoryList: string[] = ['Classic', 'Drama', 'Fairy Tale', 'Fable', 'Math', 'Fantasy', 'Biography'];
   idCounter;
@@ -51,7 +51,7 @@ export class BookService {
   getBook(id) {
     let book: Book;
     this.bookData.map(val => {
-      if (val.id == id) book = val;
+      if (val.id == id) { book = val; }
     });
     return book;
 
@@ -79,6 +79,13 @@ export class BookService {
   getCategory() {
     return this.categoryList;
 
+  }
+
+  updateCategory(category, book: Book) {
+    JSON.parse(localStorage.getItem('books'));
+    const index = this.bookData.indexOf(book);
+    this.bookData[index].category = category;
+    localStorage.setItem('books', JSON.stringify(this.bookData));
   }
 
 }
